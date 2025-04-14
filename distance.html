@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Distance Calculator - Cosmic Calc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #000;
+      color: rgb(246, 242, 242);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0, 0, 51, 0.85);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #444;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .solar-distance {
+      font-size: 1rem;
+      color: #aaa;
+    }
+    .menu {
+      display: flex;
+      gap: 1rem;
+    }
+    .menu a {
+      color: rgb(251, 251, 251);
+      text-decoration: none;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 2rem;
+      background: rgba(0, 0, 51, 0.8);
+      border-radius: 8px;
+      padding: 2rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: center;
+      width: 100%;
+    }
+    select, input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 200px;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      background-color: #111;
+      color: #fff;
+    }
+    button {
+      padding: 1rem;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    .result {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      color: #8abfdd;
+    }
+    .time {
+      font-size: 1.2rem;
+      color: #a0a0a0;
+      margin-top: 1rem;
+    }
+    .rocket-animation {
+      display: none;
+      margin-top: 2rem;
+    }
+    .rocket {
+      width: 50px;
+      height: 100px;
+      background-color: red;
+      position: relative;
+      margin: 0 auto;
+      animation: rocketAnimation 5s infinite;
+    }
+    @keyframes rocketAnimation {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-150px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+  <script>
+    const planetDistances = {
+      'Mercury': 57910000,
+      'Venus': 108200000,
+      'Earth': 149600000,
+      'Mars': 227900000,
+      'Jupiter': 778600000,
+      'Saturn': 1433500000,
+      'Uranus': 2872500000,
+      'Neptune': 4495100000,
+      'Moon': 384400,
+      'Sun': 0
+    };
+
+    const AU = 149597870.7;
+    const LIGHT_SPEED = 299792.458;
+
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('show');
+    }
+
+    function toggleRocketAnimation() {
+      document.getElementById('rocket').style.display = 'block';
+    }
+
+    function calculateDistance() {
+      const firstPlanet = document.getElementById('planet1').value;
+      const secondPlanet = document.getElementById('planet2').value;
+      const unit = document.getElementById('unit').value;
+
+      const distanceInKm = Math.abs(planetDistances[firstPlanet] - planetDistances[secondPlanet]);
+
+      let result = 0;
+      let timeLight = 0;
+      let timeStr = '';
+
+      if (unit === 'km') {
+        result = distanceInKm;
+      } else if (unit === 'AU') {
+        result = distanceInKm / AU;
+      } else if (unit === 'LY') {
+        result = distanceInKm / (LIGHT_SPEED * 60 * 60 * 24 * 365.25 * 1000);
+        timeLight = distanceInKm / LIGHT_SPEED;
+
+        if (timeLight < 60) {
+          timeStr = `Light takes ${timeLight.toFixed(2)} seconds from the Sun to the destination.`;
+        } else if (timeLight < 3600) {
+          timeStr = `Light takes ${(timeLight / 60).toFixed(2)} minutes from the Sun.`;
+        } else if (timeLight < 86400) {
+          timeStr = `Light takes ${(timeLight / 3600).toFixed(2)} hours from the Sun.`;
+        } else if (timeLight < 2592000) {
+          timeStr = `Light takes ${(timeLight / 86400).toFixed(2)} days from the Sun.`;
+        } else {
+          timeStr = `Light takes ${(timeLight / 2592000).toFixed(2)} months from the Sun.`;
+        }
+      }
+
+      document.getElementById('result').innerHTML = `The distance between ${firstPlanet} and ${secondPlanet} is: ${result.toFixed(2)} ${unit}`;
+      document.getElementById('time').innerHTML = timeStr;
+
+      toggleRocketAnimation();
+    }
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Cosmic Calc</div>
+    <div class="solar-distance">Solar System Size ≈ 7.5 Billion km</div>
+    <a href="home.html">Menu</a>
+    <a href="aboutsolar.html">About Solar system</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Distance Calculator</h1>
+
+    <div class="form-group">
+      <label for="planet1">Select the first planet:</label><br>
+      <select id="planet1">
+        <option value="Sun">Sun</option>
+        <option value="Mercury">Mercury</option>
+        <option value="Venus">Venus</option>
+        <option value="Earth">Earth</option>
+        <option value="Mars">Mars</option>
+        <option value="Jupiter">Jupiter</option>
+        <option value="Saturn">Saturn</option>
+        <option value="Uranus">Uranus</option>
+        <option value="Neptune">Neptune</option>
+        <option value="Moon">Moon</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="planet2">Select the second planet:</label><br>
+      <select id="planet2">
+        <option value="Sun">Sun</option>
+        <option value="Mercury">Mercury</option>
+        <option value="Venus">Venus</option>
+        <option value="Earth">Earth</option>
+        <option value="Mars">Mars</option>
+        <option value="Jupiter">Jupiter</option>
+        <option value="Saturn">Saturn</option>
+        <option value="Uranus">Uranus</option>
+        <option value="Neptune">Neptune</option>
+        <option value="Moon">Moon</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="unit">Select the unit:</label><br>
+      <select id="unit">
+        <option value="km">Kilometers</option>
+        <option value="AU">Astronomical Units (AU)</option>
+        <option value="LY">Light Years (LY)</option>
+      </select>
+    </div>
+
+    <button onclick="calculateDistance()">Calculate Distance</button>
+
+    <div class="result" id="result"></div>
+    <div class="time" id="time"></div>
+<!-- Add inside <body> tag, preferably at end -->
+  <!-- Chatbot Widget -->
+<div id="chatWidgetBtn" onclick="toggleChatWidget()">💬</div>
+
+<div id="chatWidgetPopup">
+  <iframe src="chat.html" frameborder="0"></iframe>
+</div>
+
+<style>
+  #chatWidgetBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #00d9ff;
+    color: #001f3f;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.6);
+  }
+
+  #chatWidgetPopup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  }
+
+  #chatWidgetPopup iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+<script>
+  function toggleChatWidget() {
+    const popup = document.getElementById("chatWidgetPopup");
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+  <script>
+    fetch('chat-widget.html')
+      .then(res => res.text())
+      .then(html => document.body.insertAdjacentHTML('beforeend', html));
+  </script>
+  
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmic Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #001f3f; /* Deep space blue */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 90%;
+      max-width: 600px;
+      background-color: #012a63;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .header {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #00d9ff;
+    }
+
+    .chat-box {
+      background-color: #001830;
+      border-radius: 10px;
+      padding: 1rem;
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .user-msg, .bot-msg {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+
+    .user-msg {
+      background-color: #0080ff;
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .bot-msg {
+      background-color: #004080;
+      align-self: flex-start;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 60px);
+      padding: 0.5rem;
+      border-radius: 10px;
+      border: none;
+    }
+
+    button {
+      width: 50px;
+      background-color: #00d9ff;
+      border: none;
+      border-radius: 10px;
+      color: #001f3f;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .input-area {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">I'm your Cosmic Chatbot 🚀</div>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Ask about the solar system..." />
+      <button onclick="getResponse()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const responses = {
+      "radius earth": "The radius of Earth is approximately 6,371 kilometers.",
+      "distance sun": "The average distance from Earth to the Sun is about 149.6 million kilometers.",
+      "planets count": "There are 8 major planets in our solar system.",
+      "largest planet": "Jupiter is the largest planet in our solar system.",
+      "smallest planet": "Mercury is the smallest planet in our solar system.",
+      "moon count": "Jupiter has the most moons with 95 confirmed as of now.",
+      "pluto planet": "Pluto is classified as a dwarf planet since 2006.",
+      "sun temperature": "The surface temperature of the Sun is about 5,500°C (9,932°F).",
+      "earth rotation": "Earth takes about 24 hours to complete one full rotation.",
+      "earth revolution": "Earth takes about 365.25 days to orbit the Sun.",
+      "venus atmosphere": "Venus has a thick atmosphere composed mainly of carbon dioxide.",
+      "mars nickname": "Mars is often called the Red Planet due to its reddish appearance.",
+      "saturn rings": "Saturn has the most prominent ring system in the solar system.",
+      "neptune wind": "Neptune has the strongest winds in the solar system.",
+      "uranus tilt": "Uranus is tilted over 90 degrees and essentially rolls around the Sun.",
+      "asteroid belt": "The asteroid belt lies between Mars and Jupiter.",
+      "comet tail": "A comet's tail always points away from the Sun due to solar wind.",
+      "solar system name": "Our solar system is called the Solar System.",
+      "sun composition": "The Sun is primarily composed of hydrogen and helium.",
+      "solar flare": "A solar flare is a sudden flash of increased brightness on the Sun."
+      // Add up to 100+ more predefined Q&A pairs for better coverage.
+    };
+
+    function getResponse() {
+      const input = document.getElementById('userInput').value.toLowerCase();
+      const chatBox = document.getElementById('chatBox');
+      const userDiv = document.createElement('div');
+      userDiv.className = 'user-msg';
+      userDiv.textContent = input;
+      chatBox.appendChild(userDiv);
+
+      let found = false;
+      for (let key in responses) {
+        const keywords = key.split(" ");
+        if (keywords.every(word => input.includes(word))) {
+          const botDiv = document.createElement('div');
+          botDiv.className = 'bot-msg';
+          botDiv.textContent = responses[key];
+          chatBox.appendChild(botDiv);
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        const botDiv = document.createElement('div');
+        botDiv.className = 'bot-msg';
+        botDiv.textContent = "Sorry, I can only answer questions about the solar system right now! 🌌";
+        chatBox.appendChild(botDiv);
+      }
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+      document.getElementById('userInput').value = '';
+    }
+  </script>
+</body>
+</html>

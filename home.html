@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmic Calc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #000;
+      color: white;
+    }
+    .navbar, .contact {
+      background-color: rgba(0, 0, 51, 0.85);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #444;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .menu-toggle {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 2rem;
+      background-color: rgba(0, 0, 51, 0.9);
+      border: 1px solid #555;
+      padding: 1rem;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      margin: 0.5rem 0;
+    }
+    .menu.show {
+      display: flex;
+    }
+    .intro {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 80vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .intro h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .intro p {
+      font-size: 1.25rem;
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .contact {
+      text-align: center;
+    }
+    .contact h2 {
+      margin-bottom: 1rem;
+    }
+    .contact p {
+      margin: 0.5rem 0;
+    }
+    /* Chatbot icon */
+    #chatbotIcon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #003366;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    #chatFrame {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      border: none;
+      z-index: 1000;
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('show');
+    }
+    function toggleChatbot() {
+      const chatFrame = document.getElementById('chatFrame');
+      chatFrame.style.display = chatFrame.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      Cosmic Calc
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="menu" id="navMenu">
+      <a href="distance.html">Distance Calculator</a>
+      <a href="aboutsolar.html">About Solar System</a>
+    </div>
+  </nav>
+
+  <section class="intro">
+    <div>
+      <h1>Welcome to Cosmic Calc</h1>
+      <p>Explore our solar system in a fun and interactive way. Whether you're curious about the distance between planets, want to visualize them in 3D, or learn key facts—this is your cosmic toolkit!</p>
+      <p><strong>Distance Calculator:</strong> Calculate real-time distances between any two solar system bodies—planets, moons, and even the Sun! Get results in kilometers, AU, or how long light would take to travel.</p>
+      <p><strong>About Solar System:</strong> Dive into our interactive 3D model and explore planets, moons, meteors, stars, and more. Learn their facts, features, and the science behind our cosmic neighborhood.</p>
+      <p><strong>Solar System Scope:</strong> Understand how vast and dynamic our solar system is—from planetary orbits to satellite paths. This section explains the science, scale, and structure in a beautiful visual format.</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p>Email: support@cosmiccalc.com</p>
+    <p>Follow us on our social channels for updates!</p>
+  </section>
+
+  <!-- Chatbot access -->
+  <button id="chatbotIcon" onclick="toggleChatbot()">💬</button>
+  <iframe id="chatFrame" src="chat.html"></iframe>
+  <!-- Add inside <body> tag, preferably at end -->
+<script>
+  fetch('chat-widget.html')
+    .then(res => res.text())
+    .then(html => document.body.insertAdjacentHTML('beforeend', html));
+</script>
+<!-- Chatbot Widget -->
+<div id="chatWidgetBtn" onclick="toggleChatWidget()">💬</div>
+
+<div id="chatWidgetPopup">
+  <iframe src="chat.html" frameborder="0"></iframe>
+</div>
+
+<style>
+  #chatWidgetBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #00d9ff;
+    color: #001f3f;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.6);
+  }
+
+  #chatWidgetPopup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  }
+
+  #chatWidgetPopup iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+<script>
+  function toggleChatWidget() {
+    const popup = document.getElementById("chatWidgetPopup");
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+</body>
+</html>

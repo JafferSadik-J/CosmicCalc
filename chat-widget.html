@@ -1,0 +1,53 @@
+<!-- chat-widget.html -->
+<div id="chatWidgetBtn" onclick="toggleChatWidget()">💬</div>
+
+<div id="chatWidgetPopup">
+  <iframe src="chat.html" frameborder="0"></iframe>
+</div>
+
+<style>
+  #chatWidgetBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #00d9ff;
+    color: #001f3f;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.6);
+  }
+
+  #chatWidgetPopup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  }
+
+  #chatWidgetPopup iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+<script>
+  function toggleChatWidget() {
+    const popup = document.getElementById("chatWidgetPopup");
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  }
+</script>

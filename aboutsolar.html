@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About the Solar System - Cosmic Calc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #000;
+      color: #f6f2f2;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0, 0, 51, 0.85);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #444;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .menu {
+      display: flex;
+      gap: 1rem;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+    }
+    .content {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .content h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .content p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .model-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      max-width: 800px;
+      height: 600px;
+    }
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #111;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Cosmic Calc</div>
+    <div class="menu">
+      <a href="home.html">Menu</a>
+      <a href="distance.html">Distance Calculator</a>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h1>About Our Solar System</h1>
+    <p>
+      Our solar system comprises the Sun and all celestial bodies bound to it by gravity. This includes eight planets, five officially recognized dwarf planets, over 300 moons, more than 1.3 million asteroids, and approximately 3,900 comets. :contentReference[oaicite:8]{index=8}
+    </p>
+    <p>
+      The Sun, a G2V main-sequence star, contains 99.86% of the solar system's mass. :contentReference[oaicite:9]{index=9} The planets, in order from the Sun, are Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. The dwarf planets include Pluto, Eris, Haumea, Makemake, and Ceres.
+    </p>
+    <p>
+      The solar system is located in the Orion Spur of the Milky Way galaxy and takes about 230 million years to orbit the galactic center. :contentReference[oaicite:10]{index=10}
+    </p>
+    <p>
+      Beyond Neptune lies the Kuiper Belt, a region filled with icy bodies and dwarf planets. Further out is the hypothesized Oort Cloud, believed to be the source of long-period comets. :contentReference[oaicite:11]{index=11}
+    </p>
+    <p>
+      Meteoroids, which are smaller than asteroids, travel through space and can enter Earth's atmosphere, becoming meteors. If they survive the journey and land on Earth, they're called meteorites. :contentReference[oaicite:12]{index=12}
+    </p>
+    <p>
+      Explore the interactive 3D model below to visualize the solar system's structure and celestial bodies:
+    </p>
+    <div class="model-container">
+      <iframe src="https://www.solarsystemscope.com/iframe" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 Cosmic Calc. Explore the cosmos!
+  </div>
+  <!-- Add inside <body> tag, preferably at end -->
+<!-- Chatbot Widget -->
+<div id="chatWidgetBtn" onclick="toggleChatWidget()">💬</div>
+
+<div id="chatWidgetPopup">
+  <iframe src="chat.html" frameborder="0"></iframe>
+</div>
+
+<style>
+  #chatWidgetBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #00d9ff;
+    color: #001f3f;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.6);
+  }
+
+  #chatWidgetPopup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  }
+
+  #chatWidgetPopup iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+<script>
+  function toggleChatWidget() {
+    const popup = document.getElementById("chatWidgetPopup");
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+<script>
+  fetch('chat-widget.html')
+    .then(res => res.text())
+    .then(html => document.body.insertAdjacentHTML('beforeend', html));
+</script>
+
+</body>
+</html>
